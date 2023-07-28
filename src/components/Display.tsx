@@ -44,12 +44,12 @@ const styles = StyleSheet.create({
   preview: {
     fontWeight: '400',
     color: '#7f8fa6',
-    fontSize: 20,
+    fontSize: 22,
   },
   answer: {
     fontWeight: '600',
     color: '#000',
-    fontSize: 30,
+    fontSize: 35,
   },
   hideAnswer: {
     display: 'none',

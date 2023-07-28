@@ -4,36 +4,38 @@ import Btn from './Btn';
 
 type Props = {
   clearHandler(): void;
+  deleteHandler(): void;
   numberHandler: (num: string) => void;
-  oparetionHandler: (op: string) => void;
+  oparetorHandler: (op: string) => void;
   resultHandler(): void;
 };
 
 const KeyBoard = ({
   numberHandler,
   clearHandler,
-  oparetionHandler,
+  deleteHandler,
+  oparetorHandler,
   resultHandler,
 }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.rowLayout}>
         <Btn onPress={clearHandler}>AC</Btn>
-        <Btn>Del</Btn>
-        <Btn onPress={() => oparetionHandler('div')}>/</Btn>
-        <Btn onPress={() => oparetionHandler('mul')}>x</Btn>
+        <Btn onPress={deleteHandler}>Del</Btn>
+        <Btn onPress={() => oparetorHandler('div')}>/</Btn>
+        <Btn onPress={() => oparetorHandler('mul')}>x</Btn>
       </View>
       <View style={styles.rowLayout}>
         <Btn onPress={() => numberHandler('7')}>7</Btn>
         <Btn onPress={() => numberHandler('8')}>8</Btn>
         <Btn onPress={() => numberHandler('9')}>9</Btn>
-        <Btn onPress={() => oparetionHandler('min')}>-</Btn>
+        <Btn onPress={() => oparetorHandler('sub')}>-</Btn>
       </View>
       <View style={styles.rowLayout}>
         <Btn onPress={() => numberHandler('4')}>4</Btn>
         <Btn onPress={() => numberHandler('5')}>5</Btn>
         <Btn onPress={() => numberHandler('6')}>6</Btn>
-        <Btn onPress={() => oparetionHandler('add')}>+</Btn>
+        <Btn onPress={() => oparetorHandler('add')}>+</Btn>
       </View>
       <View style={styles.largeRowLayout}>
         <View style={styles.colLayout}>
@@ -43,7 +45,7 @@ const KeyBoard = ({
             <Btn onPress={() => numberHandler('3')}>3</Btn>
           </View>
           <View style={styles.rowLayout}>
-            <Btn>%</Btn>
+            <Btn onPress={() => numberHandler('00')}>00</Btn>
             <Btn onPress={() => numberHandler('0')}>0</Btn>
             <Btn onPress={() => numberHandler('.')}>.</Btn>
           </View>

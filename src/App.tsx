@@ -17,15 +17,49 @@ const App = () => {
     setAnswer({result: 0, visible: false});
   };
 
-  const numberHandle = (num: string) => setSingleField(prev => prev + num);
+  const deleteHandle = () => {
+    setSingleField(prev => {
+      // if (prev) {
+      return prev.substring(0, prev.length - 1);
+      // }
+      // previewFields.
+    });
+  };
 
-  const oparetionHandle = (op: string) => {
+  const numberHandle = (num: string) => {
+    if (num === '.') {
+      if (!singleField.includes('.')) {
+        setSingleField(prev => prev + num);
+      }
+      return;
+    }
+    setSingleField(prev => prev + num);
+  };
+
+  const oparetorHandle = (op: string) => {
+    let oparetor: string;
+    switch (op) {
+      case 'sub':
+        oparetor = '-';
+        break;
+      case 'mul':
+        oparetor = 'x';
+        break;
+      case 'div':
+        oparetor = '/';
+        break;
+
+      default:
+        oparetor = '+';
+        break;
+    }
+
     setSingleField('');
     if (singleField) {
-      setPreviewFields(prev => [...prev, singleField, op]);
+      setPreviewFields(prev => [...prev, singleField, oparetor]);
     }
     if (answer.result) {
-      setPreviewFields([answer.result + '', op]);
+      setPreviewFields([answer.result + '', oparetor]);
       setAnswer({result: 0, visible: false});
     }
     // else {
@@ -53,8 +87,9 @@ const App = () => {
       />
       <KeyBoard
         clearHandler={clearHandle}
+        deleteHandler={deleteHandle}
         numberHandler={numberHandle}
-        oparetionHandler={oparetionHandle}
+        oparetorHandler={oparetorHandle}
         resultHandler={resultHandle}
       />
     </SafeAreaView>
