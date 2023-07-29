@@ -24,7 +24,9 @@ const Display = ({preview, previews, answer}: Props) => {
         style={
           typeof answer !== 'number' ? styles.hideAnswer : styles.showAnswer
         }>
-        <Text style={[styles.itemRight, styles.answer]}>{answer || 3923}</Text>
+        <Text style={[styles.itemRight, styles.answer]}>
+          {answer?.toFixed(3) || 3923}
+        </Text>
       </View>
     </View>
   );
@@ -33,7 +35,6 @@ const Display = ({preview, previews, answer}: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1.5,
-    backgroundColor: '#f5f6fa',
     padding: 10,
     alignContent: 'flex-end',
     justifyContent: 'flex-end',
@@ -44,12 +45,12 @@ const styles = StyleSheet.create({
   preview: {
     fontWeight: '400',
     color: '#7f8fa6',
-    fontSize: 22,
+    fontSize: 25,
   },
   answer: {
     fontWeight: '600',
-    color: '#000',
-    fontSize: 35,
+    color: '#353b48',
+    fontSize: 45,
   },
   hideAnswer: {
     display: 'none',

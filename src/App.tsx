@@ -18,12 +18,20 @@ const App = () => {
   };
 
   const deleteHandle = () => {
-    setSingleField(prev => {
-      // if (prev) {
-      return prev.substring(0, prev.length - 1);
-      // }
-      // previewFields.
-    });
+    if (singleField) {
+      setSingleField(prev => prev.substring(0, prev.length - 1));
+      return;
+    }
+    if (previewFields.length) {
+      const clone = [...previewFields];
+      if (!+clone?.[clone.length - 1]) {
+        clone.length = clone.length - 1;
+      }
+      const nextItem = clone.splice(clone.length - 1, 1)?.[0];
+      setSingleField(nextItem);
+      setPreviewFields(clone);
+      setAnswer({result: 0, visible: false});
+    }
   };
 
   const numberHandle = (num: string) => {
@@ -73,8 +81,45 @@ const App = () => {
   const resultHandle = () => {
     setSingleField('');
     if (singleField && previewFields.length) {
+      let result = 0;
+      const clone = [...previewFields, singleField];
+      const divs = clone.filter(i => i === '/');
+      const mults = clone.filter(i => i === 'x');
+      const subs = clone.filter(i => i === '-');
+      const adds = clone.filter(i => i === '+');
+
+      const oparetors = [...divs, ...mults, ...subs, ...adds];
+      // console.log('oparetors :', oparetors);
+
+      for (let i = 0; i < oparetors.length; i++) {
+        const opIndex = clone.findIndex(pi => pi === oparetors[i]);
+        const num1 = +clone?.[opIndex - 1];
+        const num2 = +clone?.[opIndex + 1];
+
+        switch (oparetors[i]) {
+          case '/':
+            clone.splice(opIndex - 1, 3, num1 / num2 + '');
+            // console.log('/', opIndex, num1, num2, clone);
+            break;
+          case 'x':
+            clone.splice(opIndex - 1, 3, num1 * num2 + '');
+            // console.log('*', opIndex, num1, num2, clone);
+            break;
+          case '-':
+            clone.splice(opIndex - 1, 3, num1 - num2 + '');
+            // console.log('-', opIndex, num1, num2, clone);
+            break;
+
+          default:
+            clone.splice(opIndex - 1, 3, num1 + num2 + '');
+            // console.log('+', opIndex, num1, num2, clone);
+            break;
+        }
+      }
+      result = +clone?.[0] || 0;
+
       setPreviewFields(prev => [...prev, singleField]);
-      setAnswer({result: 340, visible: true});
+      setAnswer({result, visible: true});
     }
   };
 
@@ -99,6 +144,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f5f6fa',
   },
 });
 

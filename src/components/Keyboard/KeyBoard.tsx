@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import Btn from './Btn';
+import Btn, {AcBtn, DelBtn, SumBtn} from './Btn';
 
 type Props = {
   clearHandler(): void;
@@ -20,8 +20,8 @@ const KeyBoard = ({
   return (
     <View style={styles.container}>
       <View style={styles.rowLayout}>
-        <Btn onPress={clearHandler}>AC</Btn>
-        <Btn onPress={deleteHandler}>Del</Btn>
+        <AcBtn onPress={clearHandler}>AC</AcBtn>
+        <DelBtn onPress={deleteHandler}>Del</DelBtn>
         <Btn onPress={() => oparetorHandler('div')}>/</Btn>
         <Btn onPress={() => oparetorHandler('mul')}>x</Btn>
       </View>
@@ -51,7 +51,7 @@ const KeyBoard = ({
           </View>
         </View>
         <View style={styles.flexOne}>
-          <Btn onPress={resultHandler}>=</Btn>
+          <SumBtn onPress={resultHandler}>=</SumBtn>
         </View>
       </View>
     </View>
@@ -61,7 +61,6 @@ const KeyBoard = ({
 const styles = StyleSheet.create({
   container: {
     flex: 5,
-    backgroundColor: '#dcdde1',
   },
   rowLayout: {
     flex: 1,
