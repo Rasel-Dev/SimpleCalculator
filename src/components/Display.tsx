@@ -1,31 +1,53 @@
 import React from 'react';
+import type {StyleProp, TextStyle} from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
 
 type Props = {
-  preview: string;
   previews: string[];
-  answer: number | null;
+  answer: number;
+  showAnswerPreview: boolean;
 };
 
-const Display = ({preview, previews, answer}: Props) => {
+const Display = ({previews, answer, showAnswerPreview}: Props) => {
+  let fontStyle: StyleProp<TextStyle> = styles.textXxl;
+  const previewLen = previews?.join('').length;
+
+  if (previewLen >= 11 && previewLen < 14) {
+    fontStyle = styles.textXl;
+  }
+  if (previewLen >= 14 && previewLen < 75) {
+    fontStyle = styles.textMd;
+  }
+  if (previewLen >= 75) {
+    fontStyle = styles.textSm;
+  }
+
   return (
     <View style={styles.container}>
       <View>
         <Text
           style={[
             styles.itemRight,
-            typeof answer === 'number' ? styles.preview : styles.answer,
+            !showAnswerPreview
+              ? [styles.preview, styles.textMd]
+              : [styles.answer, fontStyle],
           ]}>
-          {previews?.join(' ') + ' ' + preview}
-          {typeof answer === 'number' && '='}
+          {previews?.join(' ')}
+          {!showAnswerPreview && ' ='}
         </Text>
-      </View>
-      <View
-        style={
-          typeof answer !== 'number' ? styles.hideAnswer : styles.showAnswer
-        }>
-        <Text style={[styles.itemRight, styles.answer]}>
-          {answer?.toFixed(3) || 3923}
+        <Text
+          style={[
+            styles.itemRight,
+            showAnswerPreview
+              ? styles.ansPreview
+              : [
+                  styles.answer,
+                  answer.toString().length < 15
+                    ? styles.textXxl
+                    : styles.textXl,
+                ],
+          ]}>
+          {+answer || ''}
         </Text>
       </View>
     </View>
@@ -45,18 +67,27 @@ const styles = StyleSheet.create({
   preview: {
     fontWeight: '400',
     color: '#7f8fa6',
+  },
+  textSm: {
+    fontSize: 17,
+  },
+  textMd: {
     fontSize: 25,
+  },
+  textXl: {
+    fontSize: 35,
+  },
+  textXxl: {
+    fontSize: 45,
+  },
+  ansPreview: {
+    fontWeight: '400',
+    color: '#7f8fa6',
+    fontSize: 20,
   },
   answer: {
     fontWeight: '600',
     color: '#353b48',
-    fontSize: 45,
-  },
-  hideAnswer: {
-    display: 'none',
-  },
-  showAnswer: {
-    display: 'flex',
   },
 });
 
