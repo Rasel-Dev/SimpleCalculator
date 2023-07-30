@@ -90,7 +90,6 @@ const styles = StyleSheet.create({
     color: '#7f8fa6',
   },
   answer: {
-    // fontWeight: '600',
     color: '#353b48',
   },
 });

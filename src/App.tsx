@@ -30,7 +30,6 @@ const App = () => {
       const opIndex = clone.findIndex(pi => pi === oparetors[i]);
       const num1 = +clone?.[opIndex - 1];
       const num2 = +clone?.[opIndex + 1];
-      // console.log('num2 :', num2, clone);
 
       switch (oparetors[i]) {
         case '/':
@@ -45,19 +44,11 @@ const App = () => {
 
         default:
           clone.splice(opIndex - 1, 3, num1 + num2 + '');
-          // console.log('+', opIndex, num1, num2, clone);
           break;
       }
     }
 
     return parseFloat(parseFloat(clone?.[0]).toFixed(2)) || 0;
-
-    // setPreviewFields(prev => [...prev, singleField]);
-    // setAnswer({
-    //   result: pre ? 0 : result,
-    //   preview: pre ? result : 0,
-    //   visible: !pre,
-    // });
   };
 
   const clearHandle = () => {
