@@ -9,17 +9,17 @@ type Props = {
 };
 
 const Display = ({previews, answer, showAnswerPreview}: Props) => {
-  let fontStyle: StyleProp<TextStyle> = styles.textXxl;
+  let textStyle: StyleProp<TextStyle> = styles.textXxl;
   const previewLen = previews?.join('').length;
 
   if (previewLen >= 11 && previewLen < 14) {
-    fontStyle = styles.textXl;
+    textStyle = styles.textXl;
   }
   if (previewLen >= 14 && previewLen < 75) {
-    fontStyle = styles.textMd;
+    textStyle = styles.textMd;
   }
   if (previewLen >= 75) {
-    fontStyle = styles.textSm;
+    textStyle = styles.textSm;
   }
 
   return (
@@ -30,7 +30,7 @@ const Display = ({previews, answer, showAnswerPreview}: Props) => {
             styles.itemRight,
             !showAnswerPreview
               ? [styles.preview, styles.textMd]
-              : [styles.answer, fontStyle],
+              : [styles.answer, textStyle, styles.fontXl],
           ]}>
           {previews?.join(' ')}
           {!showAnswerPreview && ' ='}
@@ -39,9 +39,10 @@ const Display = ({previews, answer, showAnswerPreview}: Props) => {
           style={[
             styles.itemRight,
             showAnswerPreview
-              ? styles.ansPreview
+              ? [styles.ansPreview, styles.textMd, styles.fontMd]
               : [
                   styles.answer,
+                  styles.fontXl,
                   answer.toString().length < 15
                     ? styles.textXxl
                     : styles.textXl,
@@ -65,7 +66,6 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   preview: {
-    fontWeight: '400',
     color: '#7f8fa6',
   },
   textSm: {
@@ -80,13 +80,17 @@ const styles = StyleSheet.create({
   textXxl: {
     fontSize: 45,
   },
-  ansPreview: {
+  fontMd: {
     fontWeight: '400',
+  },
+  fontXl: {
+    fontWeight: '500',
+  },
+  ansPreview: {
     color: '#7f8fa6',
-    fontSize: 20,
   },
   answer: {
-    fontWeight: '600',
+    // fontWeight: '600',
     color: '#353b48',
   },
 });

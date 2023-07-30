@@ -60,13 +60,13 @@ const styles = StyleSheet.create({
     color: '#e84118',
   },
   delText: {
-    color: '#273c75',
+    color: '#0073af',
   },
   sumBg: {
-    backgroundColor: '#00a8ff',
+    backgroundColor: '#00a8ff59',
   },
   sumText: {
-    color: '#fff',
+    color: '#0073af',
     fontSize: 45,
   },
 });
